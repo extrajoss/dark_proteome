@@ -3,7 +3,7 @@ var logger = require('../node_modules/aquaria/common/log');
 var Promise = require('es6-promise').Promise;
 var matching_structures = require('../node_modules/aquaria/aquaria/matching_structures');
 var PSSHProcessor = require('./psshProcessor');
-var matching_structures_querier = require('../node_modules/aquaria/aquaria/matching_structures_querier');
+var pssh_querier = require('./pssh_querier');
 var Errors = require('../node_modules/aquaria/shared/Errors');
 var sequence = require('./sequence');
 
@@ -187,7 +187,7 @@ function generate_non_dark_regions(uniprot_primary_accession, sequence) {
 
   var psshProcessor = new PSSHProcessor(sequence, null);
 
-  return matching_structures_querier.getPSSHAndPDBRowsPromise(sequence, function (psshRow, chainRow) {
+  return pssh_querier.getPSSHAndPDBRowsPromise(sequence, function (psshRow, chainRow) {
     psshProcessor.processPSSHRow_for_dark_proteome(psshRow, chainRow);
   }).then(
       function() {
@@ -215,7 +215,7 @@ function generate_dark_regions(uniprot_primary_accession, sequence) {
 
   var psshProcessor = new PSSHProcessor(sequence, null);
 
-  return matching_structures_querier.getPSSHAndPDBRowsPromise(sequence, function (psshRow, chainRow) {
+  return pssh_querier.getPSSHAndPDBRowsPromise(sequence, function (psshRow, chainRow) {
     psshProcessor.processPSSHRow_for_dark_proteome(psshRow, chainRow);
   }).then(
       function() {
