@@ -4,7 +4,7 @@
     "host"      : "localhost",
     "dbhost"     	: "odonoghuelab.org",
     "dbuser"     	: "root",
-    "dbpassword" 	: "VIZBI+ruleztheworld!FBiA",
+    "dbpassword" 	: "[yourPassword]",
     "database" 	: "Aquaria",
     "major_version"	: "1",
     "minor_version"	: "0",
