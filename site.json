@@ -1,0 +1,15 @@
+{
+    "port"		: "8010",
+    "development"	: "true",
+    "host"      : "localhost",
+    "dbhost"     	: "odonoghuelab.org",
+    "dbuser"     	: "root",
+    "dbpassword" 	: "VIZBI+ruleztheworld!FBiA",
+    "database" 	: "Aquaria",
+    "major_version"	: "1",
+    "minor_version"	: "0",
+    "googleHostedService" : "",
+    "googleAnalyticsID" : "[your analytics ID]",
+    "googleAnalyticsHostname" : "[your analytics hostname]",
+    "lastDatabaseUpdate": "Feb 2015"
+}
