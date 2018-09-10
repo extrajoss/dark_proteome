@@ -157,7 +157,9 @@ PSSHProcessor.prototype.processPSSHRow_for_dark_proteome = function (psshRow, ch
         if (typeof sourceDummy !== 'undefined') {
           member.duplicates = sourceDummy.duplicates;
         }
-//      console.log('foudn member : ' + JSON.stringify(member));
+//      console.log('foudn member : ' + JSON.stringify(member));       
+      }
+      if(psshEntry ){
         var n_regions = psshEntry.seq_start.length;
         for(var region_index=0;region_index<n_regions;region_index++) {
             var region = [
@@ -165,9 +167,8 @@ PSSHProcessor.prototype.processPSSHRow_for_dark_proteome = function (psshRow, ch
                 psshEntry.seq_end[region_index]
                 ];
             that.regions.push(region);
-        }        
+        } 
       }
-
     });
   }
   catch(err) {
@@ -279,7 +280,7 @@ var processPSSHMember = function(psshRow, pdbChainRow, primary_accession, rowCal
   var  n_blocks, k;
   var member;
 
-  if (pdbChainRow.Matches.length > 0) {
+  if (pdbChainRow.Matches.length > 0 && pdbChainRow.Matches != pdbChainRow.Chain) {
     member = {
         duplicateOf:     pdbChainRow.PDB_ID + '-' + pdbChainRow.Matches + '-' + psshRow.Repeat_domains,
         chain: pdbChainRow.Chain

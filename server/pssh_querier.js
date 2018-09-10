@@ -2,10 +2,10 @@ var logger = require('../node_modules/aquaria/common/log');
 var Errors = require('../node_modules/aquaria/shared/Errors');
 var connector = require('../node_modules/aquaria/common/connector');
 
-module.exports.getPSSHAndPDBRowsPromise = function(sequence, rowCallback) {
+module.exports.getPSSHAndPDBRowsPromise = function(sequence, rowCallback,options) {
 
   var psshRows = null;
-  return connector.queryPromise(getPSSHSQL(), [ sequence.uniprot_hash ]).then(
+  return connector.queryPromise(getPSSHSQL(), [ sequence.uniprot_hash ],options).then(
       function(results) {
         psshRows = results;
         if (results.length == 0) {
@@ -42,8 +42,8 @@ module.exports.getPSSHAndPDBRowsPromise = function(sequence, rowCallback) {
 }
 
 var getPSSHSQL = function() {
-  return "select psshResolved.PDB_chain_hash, Match_length, E_value, Identity_Score, Repeat_domains, Alignment from PSSH2 as psshResolved where protein_sequence_hash = ? \
-and e_value<0.0000000001 ORDER BY Identity_Score DESC, Match_length DESC";
+  return "select psshResolved.PDB_chain_hash, Match_length, E_value, Identity_Score, Repeat_domains, Alignment from PSSH2.pssh2_DarkProtein as psshResolved where protein_sequence_hash = ? \
+ ORDER BY Identity_Score DESC, Match_length DESC";
 };
 
 var getPDBSQL = function(chainHashes) {
@@ -52,6 +52,6 @@ var getPDBSQL = function(chainHashes) {
   });
   // q.length = chainHashes.length;
   return "select \
-PDB_ID, Chain, Model, PDB_chain.MD5_Hash, Matches, Align_to_SEQRES from PDB_chain where PDB_chain.MD5_Hash  in ("
+PDB_ID, Chain, Model, PDB_chain.MD5_Hash, Matches, Align_to_SEQRES from aquaria.PDB_chain where PDB_chain.MD5_Hash  in ("
       + q.join(",") + ") and Model = 1;";
 };
